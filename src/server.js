@@ -11,7 +11,6 @@ configViewEngine(app);
 
 initWebRouter(app);
 
-
-app.listen(PORT, ()=>{
-    console.log("listening on port + " + PORT);
+app.listen(PORT, () => {
+  console.log("Run on PORT + " + PORT);
 });
