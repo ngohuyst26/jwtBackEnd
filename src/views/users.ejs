@@ -12,35 +12,33 @@
 <body>
     <div class="container">
         <div class="row">
-            <!-- <div class="col-3"></div> -->
-            <form class="col-5 mt-5" method="post" action="/user/create">
-                <h1 class="text-center text-danger">ĐĂNG KÝ</h1>
+            <form class="col-5 mt-5"  method="post" action="/user/create">
+                <h1 class="text-center text-danger">TẠO TÀI KHOẢN </h1>
                 <div class="mb-3">
                     <label for="Email1" class="form-label">Email address </label>
-                    <input type="email" class="form-control" id="Email" name="email" />
+                    <input type="email" class="form-control" id="Email" name="email" required >
                 </div>
                 <div class="mb-3">
                     <label for="User" class="form-label">User name </label>
-                    <input type="text" class="form-control" id="User" name="user" />
+                    <input type="text" class="form-control" id="User" name="user" required>
                 </div>
                 <div class="mb-3">
                     <label for="Password" class="form-label">Password </label>
-                    <input type="password" class="form-control" id="Password" name="password" />
+                    <input type="password" class="form-control" id="Password" name="password" required>
                 </div>
                 <div class="mb-3">
                     <label for="PasswordVerry" class="form-label">Password Verry
                     </label>
-                    <input type="password" class="form-control" id="PasswordVerry" name="verry" />
+                    <input type="password" class="form-control" id="PasswordVerry" name="verry" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Đăng ký</button>
             </form>
-            <div class="col-3"></div>
         </div>
 
         <table class="table table-hover table-bordered mt-3">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
                     <th scope="col">User name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Action</th>
@@ -49,12 +47,12 @@
             <tbody>
                 <% UserList.forEach(function(users,index){ %>
                 <tr>
-                    <th scope="row"> <%= index + 1 %> </th>
+                    <th scope="row"> <%= users.id %> </th>
                     <td> <%= users.user %> </td>
                     <td> <%= users.email %> </td>
                     <td>
                         <button type="submit" class="btn btn-warning">Edit</button>
-                        <button type="submit" class="btn btn-danger">Remove</button>
+                        <a href="/user/delete/<%= users.id %>"><button type="submit" class="btn btn-danger">Remove</button></a>
                     </td>
                 </tr>
                 <% }) %>

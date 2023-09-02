@@ -7,10 +7,12 @@ const handleHome = (req, res) => {
   return res.render("home.ejs", { name });
 };
 
+
 const handleUserPage = async (req, res) => {
   let UserList = await serviceUser.ListUsers();
-  return res.render("users.ejs", {UserList});
+  return res.render("users.ejs", { UserList });
 };
+
 
 const handleCreateUser = (req, res) => {
   let email = req.body.email;
@@ -18,11 +20,19 @@ const handleCreateUser = (req, res) => {
   let password = req.body.password;
   let verry = req.body.verry;
   serviceUser.createUser(user, email, password)
-  return res.send("create");
+  return res.redirect("/user");
 };
+
+
+const handleDeleteUser = async (req, res) => {
+  await serviceUser.RemoveUsers(req.params.id)
+  return res.redirect("/user");
+}
+
 
 module.exports = {
   handleHome,
   handleUserPage,
   handleCreateUser,
+  handleDeleteUser
 };
