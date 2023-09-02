@@ -9,7 +9,9 @@ const routes = express.Router();
  */
 
 const initWebRoutes = (app) => {
-  routes.get("/", homeController.hanleController);
+  routes.get("/", homeController.handleHome);
+  routes.get("/user", homeController.handleUserPage);
+  routes.post("/user/create", homeController.handleCreateUser);
   return app.use("/", routes);
 };
 
