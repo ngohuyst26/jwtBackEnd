@@ -2,7 +2,7 @@
 import mysql from "mysql2/promise";
 import bcrypt from "bcryptjs";
 import bluebird from 'bluebird';
-
+import db from "../models/index";
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -12,11 +12,14 @@ const hashUserPassword = (userpass) => {
 };
 
 const createUser = async (username, email, password) => {
-  const connection = await mysql.createConnection({ host: 'localhost', user: 'root', password: 'mysql', database: 'jwtbackend', Promise: bluebird });
   let passHash = hashUserPassword(password);
   try {
-    connection.execute('INSERT INTO users(email,user,password) VALUES(?,?,?)', [email, username, passHash]);
-    console.log("Tạo thành công")
+    //User là tên của moddel khôn phải tên của bảng 
+    await db.User.create({
+      email: email,
+      password: passHash,
+      user: username
+    });
   } catch (e) {
     console.log(e);
   }
@@ -26,7 +29,7 @@ const ListUsers = async () => {
   let userslist = [];
   const connection = await mysql.createConnection({ host: 'localhost', user: 'root', password: 'mysql', database: 'jwtbackend', Promise: bluebird });
   try {
-    const [rows] = await connection.execute('SELECT * FROM `users`');
+    const [rows] = await connection.execute('SELECT * FROM `user`');
     userslist = rows;
     return userslist;
   } catch (e) {
