@@ -25,7 +25,26 @@ const handleCreateUser = (req, res) => {
 
 
 const handleDeleteUser = async (req, res) => {
+  console.log("id:", req.params.id);
   await serviceUser.RemoveUsers(req.params.id)
+  return res.redirect("/user");
+}
+
+const handleGetOneUser = async (req, res) => {
+  let userGet = {}; 
+  let user = await serviceUser.GetOneUser(req.params.id);
+  if(user && user.length > 0) {
+    userGet = user[0];
+  }
+  return res.render("update-user.ejs", { userGet });
+}
+
+
+const handleUpdateUser = async (req, res) => {
+  let user = req.body.user;
+  let email = req.body.email;
+  let id = req.body.id;
+  await serviceUser.UpdateUser(id, user, email);
   return res.redirect("/user");
 }
 
@@ -34,5 +53,7 @@ module.exports = {
   handleHome,
   handleUserPage,
   handleCreateUser,
-  handleDeleteUser
+  handleDeleteUser,
+  handleGetOneUser,
+  handleUpdateUser
 };

@@ -51,8 +51,8 @@
                     <td> <%= users.user %> </td>
                     <td> <%= users.email %> </td>
                     <td>
-                        <button type="submit" class="btn btn-warning">Edit</button>
-                        <a href="/user/delete/<%= users.id %>"><button type="submit" class="btn btn-danger">Remove</button></a>
+                        <a href="/user/update/<%= users.id %>"><button type="submit" class="btn btn-warning">Edit</button></a>
+                        <a href="/user/remove/<%= users.id %>"><button type="submit" class="btn btn-danger">Remove</button></a>
                     </td>
                 </tr>
                 <% }) %>

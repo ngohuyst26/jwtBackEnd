@@ -24,17 +24,12 @@ const createUser = async (username, email, password) => {
 
 const ListUsers = async () => {
   let userslist = [];
-
   const connection = await mysql.createConnection({ host: 'localhost', user: 'root', password: 'mysql', database: 'jwtbackend', Promise: bluebird });
-
   try {
-
     const [rows] = await connection.execute('SELECT * FROM `users`');
     userslist = rows;
     return userslist;
-
   } catch (e) {
-
     console.log(e);
     return userslist;
 
@@ -50,9 +45,36 @@ const RemoveUsers = async (id) => {
   }
 }
 
+const GetOneUser = async (id) => {
+  const connection = await mysql.createConnection({ host: 'localhost', user: 'root', password: 'mysql', database: 'jwtbackend', Promise: bluebird });
+  try {
+    const [rows] = await connection.execute('select * from users where id=?',[id]);
+    return rows;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+
+
+
+
+
+const UpdateUser = async (id, user, email) => { 
+  const connection = await mysql.createConnection({ host: 'localhost', user: 'root', password: 'mysql', database: 'jwtbackend', Promise: bluebird });
+  try {
+    await connection.execute('UPDATE users SET user=?, email=? WHERE id=?',[user, email, id]);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+
 module.exports = {
   createUser,
   hashUserPassword,
   ListUsers,
-  RemoveUsers
+  RemoveUsers,
+  GetOneUser,
+  UpdateUser
 }
