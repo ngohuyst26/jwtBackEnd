@@ -14,18 +14,18 @@ const handleUserPage = async (req, res) => {
 };
 
 
-const handleCreateUser = (req, res) => {
+const handleCreateUser = async (req, res) => {
   let email = req.body.email;
   let user = req.body.user;
   let password = req.body.password;
   let verry = req.body.verry;
-  serviceUser.createUser(user, email, password)
+  await serviceUser.createUser(user, email, password)
   return res.redirect("/user");
 };
 
 
 const handleDeleteUser = async (req, res) => {
-  console.log("id:", req.params.id);
+  console.log("Delete id:", req.params.id);
   await serviceUser.RemoveUsers(req.params.id)
   return res.redirect("/user");
 }
