@@ -26,6 +26,32 @@ const createUser = async (username, email, password) => {
 
 
 const ListUsers = async () => {
+
+  //attributes dùng để lọc các gái trị caanf lấy ra 
+  //include đẻ liên kết lấy dữ liệu từ bảng khác
+  // 
+  let usergroup = await db.User.findOne(
+    {
+      where: { id: 2 },
+      attributes: ["id", "user", "email"],
+      include: { model: db.Group, attributes: ["name", "description"] },
+      raw: true,
+      nest: true
+    }
+  );
+
+
+  let RoleUser = await db.Role.findAll(
+    {
+      attributes: ["id", "url", "description"],
+      include: { model: db.Group, where: {id: 1}, attributes: ["id", "name", "description"]},
+      raw: true,
+      nest: true
+    }
+  );
+  console.log("user role: ", RoleUser);
+
+
   let userslist = [];
   try {
     const users = await db.User.findAll();
